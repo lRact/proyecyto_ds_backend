@@ -23,7 +23,7 @@ export class RolService {
     }
 
     async getById(id: number): Promise <RolEntity> {
-        const rol = await this.rolRepository.findOneBy({ id });
+        const rol = await this.rolRepository.findOneBy({ id_rol: id });
 
         if(!rol) {
             throw new NotFoundException(new MessageDto(`Rol with ID ${ id } not found.`));
@@ -57,7 +57,7 @@ export class RolService {
         }
 
         const exists = await this.getByName(dto.nombre_rol);
-        if(exists && exists.id !== id) {
+        if(exists && exists.id_rol !== id) {
             throw new BadRequestException(new MessageDto(`Rol ${ dto.nombre_rol } already exists`));
         }
 
