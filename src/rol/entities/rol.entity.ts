@@ -9,6 +9,6 @@ export class RolEntity {
     @Column({type: 'varchar', length: 50, nullable: false, unique: true})
     nombre_rol: string;
 
-    @OneToMany(() => UsuarioEntity, usuario => usuario.id_rol)
+    @OneToMany(() => UsuarioEntity, usuario => usuario.rol)
     usuarios: UsuarioEntity[];
 }

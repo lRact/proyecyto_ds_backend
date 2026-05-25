@@ -1,7 +1,6 @@
 import {
     BadRequestException,
     ConflictException,
-    HttpException,
     Injectable,
     NotFoundException,
     UnauthorizedException
@@ -18,7 +17,11 @@ import {UpdateUsuarioDto} from "./dto/update-usuario.dto";
 
 @Injectable()
 export class AuthService {
-    constructor(@InjectRepository(UsuarioEntity) private usuarioRepository: Repository<UsuarioEntity>, private jwtService: JwtService) { }
+    constructor(
+        @InjectRepository(UsuarioEntity)
+        private usuarioRepository: Repository<UsuarioEntity>,
+        private jwtService: JwtService
+    ) { }
 
     async getAll(): Promise<UsuarioEntity[]> {
         const list = await this.usuarioRepository.find();

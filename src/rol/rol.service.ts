@@ -3,13 +3,13 @@ import { CreateRolDto } from './dto/create-rol.dto';
 import {RolEntity} from "./entities/rol.entity";
 import {MessageDto} from "../common/message.dto";
 import {InjectRepository} from "@nestjs/typeorm";
-import {RolRepository} from "./rol.repository";
+import {Repository} from "typeorm";
 
 @Injectable()
 export class RolService {
     constructor(
         @InjectRepository(RolEntity)
-        private readonly rolRepository: RolRepository,
+        private rolRepository: Repository<RolEntity>,
     ) {}
 
     async getAll(): Promise<RolEntity[]> {
