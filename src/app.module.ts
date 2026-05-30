@@ -6,6 +6,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
 import { RolModule } from './rol/rol.module';
 import { AuthModule } from './auth/auth.module';
 import { AlumnoModule } from './alumno/alumno.module';
+import { ActividadModule } from './actividad/actividad.module';
 
 @Module({
     imports: [
@@ -31,6 +32,7 @@ import { AlumnoModule } from './alumno/alumno.module';
         RolModule,
         AuthModule,
         AlumnoModule,
+        ActividadModule,
     ],
     controllers: [AppController],
     providers: [AppService],

@@ -1,6 +1,7 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToOne, PrimaryGeneratedColumn} from "typeorm";
+import {Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
 import {RolEntity} from "../../rol/entities/rol.entity";
 import {AlumnoEntity} from "../../alumno/entities/alumno.entity";
+import {ActividadEntity} from "../../actividad/entities/actividad.entity";
 
 @Entity({name: 'usuario'})
 export class UsuarioEntity {
@@ -27,4 +28,9 @@ export class UsuarioEntity {
 
     @OneToOne(() => AlumnoEntity, alumno => alumno.usuario)
     alumno: AlumnoEntity;
+
+    @OneToMany(() => ActividadEntity, actividad => actividad.usuario, {
+        onDelete: 'CASCADE'
+    })
+    actividad: ActividadEntity
 }
