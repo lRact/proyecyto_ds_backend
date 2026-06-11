@@ -75,7 +75,7 @@ export class AuthService {
         return new MessageDto(`User with email ${createUsuarioDto.correo} created successfully`);
     }
 
-    async login(loginUsuarioDto: LoginUsuarioDto): Promise<MessageDto> {
+    async login(loginUsuarioDto: LoginUsuarioDto): Promise<{ accessToken: string }> {
         const { email, password } = loginUsuarioDto;
         const emailExists = await this.usuarioRepository.findOneBy({correo: email});
 
@@ -90,7 +90,7 @@ export class AuthService {
         }
 
         const token = await this.generateToken(emailExists.id);
-        return new MessageDto(`User with email ${email} logged in successfully. Token: ${token.accessToken}`);
+        return { accessToken: token.accessToken };
     }
 
     async generateToken(userId) {
