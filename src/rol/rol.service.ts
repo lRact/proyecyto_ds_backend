@@ -16,7 +16,7 @@ export class RolService {
         const list = await this.rolRepository.find();
 
         if(!list.length) {
-            throw new NotFoundException(new MessageDto('No roles found'));
+            throw new NotFoundException(new MessageDto('No se encontraron roles.'));
         }
 
         return list;
@@ -26,7 +26,7 @@ export class RolService {
         const rol = await this.rolRepository.findOneBy({ id_rol: id });
 
         if(!rol) {
-            throw new NotFoundException(new MessageDto(`Rol with ID ${ id } not found.`));
+            throw new NotFoundException(new MessageDto(`Rol no encontrado.`));
         }
 
         return rol;
@@ -40,43 +40,43 @@ export class RolService {
         const exists = await this.getByName(dto.nombre_rol);
 
         if(exists) {
-            throw new BadRequestException(new MessageDto(`Rol ${ dto.nombre_rol } already exists`));
+            throw new BadRequestException(new MessageDto(`El rol ${ dto.nombre_rol } ya existe.`));
         }
 
         const rol = this.rolRepository.create(dto);
         await this.rolRepository.save(rol);
 
-        return new MessageDto(`Rol ${rol.nombre_rol} created`);
+        return new MessageDto(`Rol ${rol.nombre_rol} creado.`);
     }
 
     async update(id: number, dto: CreateRolDto): Promise<any> {
         const rol = await this.getById(id);
 
         if(!rol) {
-            throw new BadRequestException(new MessageDto(`Rol with ID ${ id } not found.`));
+            throw new BadRequestException(new MessageDto(`Rol con ID ${ id } no encontrado.`));
         }
 
         const exists = await this.getByName(dto.nombre_rol);
         if(exists && exists.id_rol !== id) {
-            throw new BadRequestException(new MessageDto(`Rol ${ dto.nombre_rol } already exists`));
+            throw new BadRequestException(new MessageDto(`El rol ${ dto.nombre_rol } ya existe.`));
         }
 
         dto.nombre_rol? rol.nombre_rol = dto.nombre_rol : rol.nombre_rol;
 
         await this.rolRepository.save(rol);
 
-        return new MessageDto(`Rol ${rol.nombre_rol} updated`);
+        return new MessageDto(`Rol ${rol.nombre_rol} actualizado.`);
     }
 
     async delete(id: number): Promise<any> {
         const rol = await this.getById(id);
 
         if(!rol) {
-            throw new BadRequestException(new MessageDto(`Rol with ID ${ id } not found.`));
+            throw new BadRequestException(new MessageDto(`Rol con ID ${ id } no encontrado.`));
         }
 
         await this.rolRepository.remove(rol);
 
-        return new MessageDto(`Rol ${rol.nombre_rol} deleted`);
+        return new MessageDto(`Rol ${rol.nombre_rol} eliminado.`);
     }
 }

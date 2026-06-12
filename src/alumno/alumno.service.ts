@@ -17,7 +17,7 @@ export class AlumnoService {
         const list = await this.alumnoRepository.find();
 
         if(!list.length) {
-            throw new NotFoundException(new MessageDto('No data found'));
+            throw new NotFoundException(new MessageDto('No se encontraron alumnos.'));
         }
 
         return list;
@@ -27,7 +27,7 @@ export class AlumnoService {
         const alumno = await this.alumnoRepository.findOneBy({id});
 
         if(!alumno) {
-            throw new NotFoundException(new MessageDto('Alumno not found'));
+            throw new NotFoundException(new MessageDto('Alumno no encontrado.'));
         }
 
         return alumno;
@@ -36,18 +36,18 @@ export class AlumnoService {
     async create(createAlumnoDto: CreateAlumnoDto): Promise<MessageDto> {
         await this.alumnoRepository.save(createAlumnoDto);
 
-        return new MessageDto('Data created successfully');
+        return new MessageDto('Alumno creado correctamente.');
     }
 
     async update(id: number, updateAlumnoDto: UpdateAlumnoDto): Promise<MessageDto> {
         await this.alumnoRepository.update(id, updateAlumnoDto);
 
-        return new MessageDto('Data updated successfully');
+        return new MessageDto('Alumno actualizado correctamente.');
     }
 
     async delete(id: number): Promise<MessageDto> {
         await this.alumnoRepository.delete(id);
 
-        return new MessageDto('Data deleted successfully');
+        return new MessageDto('Alumno eliminado correctamente.');
     }
 }

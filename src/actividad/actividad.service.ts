@@ -17,7 +17,7 @@ export class ActividadService {
         const list = await this.actividadRepository.find();
 
         if(!list.length) {
-            throw new NotFoundException(new MessageDto('No activities found'))
+            throw new NotFoundException(new MessageDto('No se encontraron actividades.'))
         }
 
         return list;
@@ -27,7 +27,7 @@ export class ActividadService {
         const actividad = await this.actividadRepository.findOneBy({id_actividad});
 
         if(!actividad) {
-            throw new NotFoundException(new MessageDto('Activity not found'))
+            throw new NotFoundException(new MessageDto('No se encontro la actividad.'))
         }
 
         return actividad;
@@ -36,18 +36,18 @@ export class ActividadService {
     async create(createActividadDto: CreateActividadDto): Promise<MessageDto> {
         await this.actividadRepository.save(createActividadDto);
 
-        return new MessageDto('Activity created successfully');
+        return new MessageDto('Actividad creada correctamente.');
     }
 
     async update(id: number, updateActividadDto: UpdateActividadDto): Promise<MessageDto> {
         await this.actividadRepository.update(id, updateActividadDto);
 
-        return new MessageDto('Activity updated successfully');
+        return new MessageDto('Actividad actualizada correctamente.');
     }
 
     async delete(id: number): Promise<MessageDto> {
         await this.actividadRepository.delete(id);
 
-        return new MessageDto('Activity deleted successfully');
+        return new MessageDto('Actividad eliminada correctamente.');
     }
 }

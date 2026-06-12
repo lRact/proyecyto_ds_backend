@@ -27,7 +27,7 @@ export class AuthService {
         const list = await this.usuarioRepository.find();
 
         if(!list.length) {
-            throw new NotFoundException('No users found');
+            throw new NotFoundException('No se encontraron usuarios.');
         }
 
         return list;
@@ -37,7 +37,7 @@ export class AuthService {
         const user = await this.usuarioRepository.findOneBy({id});
 
         if(!user) {
-            throw new NotFoundException('User not found');
+            throw new NotFoundException('Usuario no encontrado.');
         }
 
         return user;
@@ -47,7 +47,7 @@ export class AuthService {
         const user = await this.usuarioRepository.findOneBy({correo: email});
 
         if(!user) {
-            throw new NotFoundException('User not found');
+            throw new NotFoundException('Usuario no encontrado.');
         }
 
         return user;
@@ -58,7 +58,7 @@ export class AuthService {
         const emailExists = await this.usuarioRepository.findOneBy({correo: createUsuarioDto.correo});
 
         if (emailExists) {
-            throw new ConflictException(new MessageDto('Email already exists'));
+            throw new ConflictException(new MessageDto('El correo ya existe.'));
         }
 
         createUsuarioDto.password = await bcrypt.hash(createUsuarioDto.password, numRound);
@@ -72,7 +72,7 @@ export class AuthService {
 
         await this.usuarioRepository.save(nuevoUsuario);
 
-        return new MessageDto(`User with email ${createUsuarioDto.correo} created successfully`);
+        return new MessageDto(`El usuario con correo ${createUsuarioDto.correo} fue creado correctamente.`);
     }
 
     async login(loginUsuarioDto: LoginUsuarioDto): Promise<{ accessToken: string }> {
@@ -80,13 +80,13 @@ export class AuthService {
         const emailExists = await this.usuarioRepository.findOneBy({correo: email});
 
         if (!emailExists) {
-            throw new UnauthorizedException(new MessageDto('Invalid credentials'));
+            throw new UnauthorizedException(new MessageDto('Credenciales invalidas.'));
         }
 
         const passwordMatch = await bcrypt.compare(password, emailExists.password);
 
         if (!passwordMatch) {
-            throw new UnauthorizedException(new MessageDto('Invalid credentials'));
+            throw new UnauthorizedException(new MessageDto('Credenciales invalidas.'));
         }
 
         const token = await this.generateToken(emailExists.id);
@@ -103,14 +103,14 @@ export class AuthService {
         const usuario = await this.getById(id);
 
         if(!usuario) {
-            throw new BadRequestException(new MessageDto(`User with ID ${id} not found`))
+            throw new BadRequestException(new MessageDto(`Usuario con ID ${id} no encontrado.`))
         }
 
         if(updateUsuarioDto.correo) {
             const exists = await this.getByEmail(updateUsuarioDto.correo);
 
             if(exists && exists.id !== id) {
-                throw new ConflictException(new MessageDto('Email already exists'));
+                throw new ConflictException(new MessageDto('El correo ya existe.'));
             }
         }
 
@@ -122,18 +122,18 @@ export class AuthService {
 
         const correo = updateUsuarioDto.correo || usuario.correo;
 
-        return new MessageDto(`User ${correo} updated`)
+        return new MessageDto(`Usuario con correo ${correo} actualizado.`)
     }
 
     async delete(id: number): Promise<MessageDto> {
         const usuario = await this.getById(id);
 
         if(!usuario) {
-            throw new BadRequestException(new MessageDto(`User with ID ${id} not found`));
+            throw new BadRequestException(new MessageDto(`Usuario con ID ${id} no encontrado.`));
         }
 
         await this.usuarioRepository.remove(usuario);
 
-        return new MessageDto(`User with ID ${id} deleted`);
+        return new MessageDto(`Usuario con ID ${id} eliminado.`);
     }
 }
