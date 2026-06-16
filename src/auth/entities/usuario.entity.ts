@@ -1,5 +1,4 @@
-import {Column, Entity, JoinColumn, ManyToOne, OneToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
-import {RolEntity} from "../../rol/entities/rol.entity";
+import {Column, Entity, OneToMany, OneToOne, PrimaryGeneratedColumn} from "typeorm";
 import {AlumnoEntity} from "../../alumno/entities/alumno.entity";
 import {ActividadEntity} from "../../actividad/entities/actividad.entity";
 
@@ -17,14 +16,8 @@ export class UsuarioEntity {
     @Column({type: 'varchar', length: 255, nullable: false})
     password: string;
 
-    @ManyToOne(() => RolEntity, rol => rol.usuarios, {
-        onDelete: 'CASCADE'
-    })
-    @JoinColumn({name: 'id_rol'})
-    rol: RolEntity;
-
-    @Column()
-    id_rol: number;
+    @Column({type: 'varchar', length: 30, nullable: false})
+    rol: string;
 
     @OneToOne(() => AlumnoEntity, alumno => alumno.usuario)
     alumno: AlumnoEntity;

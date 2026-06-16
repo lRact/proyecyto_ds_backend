@@ -8,7 +8,7 @@ CREATE TABLE Rol (
 );
 
 
-INSERT INTO Rol (nombre_rol) VALUES ('Admin'), ('Maestro'), ('Alumno');
+INSERT INTO Rol (nombre_rol) VALUES ('Admin') ('Alumno');
 
 
 CREATE TABLE Usuario (

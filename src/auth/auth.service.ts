@@ -67,7 +67,7 @@ export class AuthService {
             nombre: createUsuarioDto.nombre,
             correo: createUsuarioDto.correo,
             password: createUsuarioDto.password,
-            id_rol: createUsuarioDto.id_rol
+            rol: createUsuarioDto.rol
         });
 
         await this.usuarioRepository.save(nuevoUsuario);
