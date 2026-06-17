@@ -27,10 +27,20 @@ export class ActividadService {
         const actividad = await this.actividadRepository.findOneBy({id_actividad});
 
         if(!actividad) {
-            throw new NotFoundException(new MessageDto('No se encontro la actividad.'))
+            throw new NotFoundException(new MessageDto('No se encontro la actividad.'));
         }
 
         return actividad;
+    }
+
+    async getByUser(id_usuario: number): Promise<ActividadEntity[]> {
+        const list = await this.actividadRepository.findBy({id_usuario});
+
+        if(!list.length) {
+            throw new NotFoundException(new MessageDto('No se encontraron actividades para este usuario.'));
+        }
+
+        return list;
     }
 
     async create(createActividadDto: CreateActividadDto): Promise<MessageDto> {

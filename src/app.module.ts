@@ -4,7 +4,6 @@ import { AppService } from './app.service';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { AuthModule } from './auth/auth.module';
-import { AlumnoModule } from './alumno/alumno.module';
 import { ActividadModule } from './actividad/actividad.module';
 
 @Module({
@@ -29,7 +28,6 @@ import { ActividadModule } from './actividad/actividad.module';
             inject: [ConfigService],
         }),
         AuthModule,
-        AlumnoModule,
         ActividadModule,
     ],
     controllers: [AppController],

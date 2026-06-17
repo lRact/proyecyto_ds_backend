@@ -89,12 +89,12 @@ export class AuthService {
             throw new UnauthorizedException(new MessageDto('Credenciales invalidas.'));
         }
 
-        const token = await this.generateToken(emailExists.id);
+        const token = await this.generateToken(emailExists.id, emailExists.nombre);
         return { accessToken: token.accessToken };
     }
 
-    async generateToken(userId) {
-        const accessToken = this.jwtService.sign({ userId });
+    async generateToken(userId, nombre) {
+        const accessToken = this.jwtService.sign({ userId, nombre });
         return { accessToken };
     }
 

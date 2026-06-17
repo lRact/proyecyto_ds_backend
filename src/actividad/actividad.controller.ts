@@ -17,6 +17,11 @@ export class ActividadController {
         return this.actividadService.getById(id);
     }
 
+    @Get('usuario/:id')
+    getByUser(@Param('id') id: number) {
+        return this.actividadService.getByUser(id);
+    }
+
     @Post()
     create(@Body() createActividadDto: CreateActividadDto) {
         return this.actividadService.create(createActividadDto);

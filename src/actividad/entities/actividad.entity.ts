@@ -16,6 +16,9 @@ export class ActividadEntity {
     @Column({type: 'integer', nullable: false})
     nivel_estres: number;
 
+    @Column({type: 'boolean', nullable: false, default: false})
+    completada?: boolean;
+
     @ManyToOne(() => UsuarioEntity, usuario => usuario.actividad)
     @JoinColumn({name: 'id_usuario'})
     usuario: UsuarioEntity;

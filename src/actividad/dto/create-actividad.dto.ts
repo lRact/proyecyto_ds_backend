@@ -1,5 +1,5 @@
 import {IsNotBlank} from "../../decorators/is-not-blank.decorator";
-import {IsDateString, IsNotEmpty, IsNumber, IsString, Max, Min} from "class-validator";
+import {IsBoolean, IsDateString, IsNotEmpty, IsNumber, IsString, Max, Min} from "class-validator";
 
 export class CreateActividadDto {
     @IsString()
@@ -14,6 +14,10 @@ export class CreateActividadDto {
     @Min(1)
     @Max(10)
     nivel_estres: number;
+
+    @IsBoolean()
+    @IsNotEmpty()
+    completada?: boolean;
 
     @IsNumber()
     @IsNotEmpty()
