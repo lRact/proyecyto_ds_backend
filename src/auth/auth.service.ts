@@ -100,14 +100,14 @@ export class AuthService {
 
     async update(id: number, updateUsuarioDto: UpdateUsuarioDto): Promise<MessageDto> {
         const numRound = 10;
-        const usuario = await this.getById(id);
+        const usuario = await this.usuarioRepository.findOneBy({id});
 
         if(!usuario) {
             throw new BadRequestException(new MessageDto(`Usuario con ID ${id} no encontrado.`))
         }
 
         if(updateUsuarioDto.correo) {
-            const exists = await this.getByEmail(updateUsuarioDto.correo);
+            const exists = await this.usuarioRepository.findOneBy({correo: updateUsuarioDto.correo});
 
             if(exists && exists.id !== id) {
                 throw new ConflictException(new MessageDto('El correo ya existe.'));

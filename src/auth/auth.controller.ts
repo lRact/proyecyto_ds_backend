@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, Param, Patch, Post, Req, UseGuards} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, ParseIntPipe, Patch, Post, Req, UseGuards} from '@nestjs/common';
 import { AuthService } from './auth.service';
 import {CreateUsuarioDto} from "./dto/create-usuario.dto";
 import {LoginUsuarioDto} from "./dto/login-usuario.dto";
@@ -33,7 +33,7 @@ export class AuthController {
 
     @UseGuards(AuthGuard)
     @Patch(':id')
-    update(@Param('id') id: number, @Body() updateUsuarioDto: UpdateUsuarioDto) {
+    update(@Param('id', ParseIntPipe) id: number, @Body() updateUsuarioDto: UpdateUsuarioDto) {
         return this.authService.update(id, updateUsuarioDto);
     }
 
